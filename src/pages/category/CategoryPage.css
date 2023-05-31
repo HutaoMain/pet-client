@@ -1,0 +1,53 @@
+.category-page-datagrid {
+  padding-top: 30px;
+}
+
+.action-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffff;
+
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 20px;
+  font-size: 14px;
+}
+
+.edit {
+  background-color: blue;
+}
+.delete {
+  background-color: red;
+}
+
+.add-category-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: aquamarine;
+
+  font-size: 18px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  height: 50px;
+  width: 200px;
+
+  cursor: pointer;
+}
+
+.add-category-btn:hover {
+  opacity: 0.8;
+}
