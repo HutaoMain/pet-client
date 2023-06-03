@@ -1,21 +1,15 @@
-import "./ProductPage.css";
-import SearchBar from "../../components/search/SearchBar";
+import "./PetsPage.css";
 import axios from "axios";
-import Modal from "react-modal";
+import SearchBar from "../../components/search/SearchBar";
 
 import { useQuery } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Add, Delete, ModeEdit } from "@mui/icons-material";
+import { Add, Delete, ModeEdit, ManageSearch } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import AddProduct from "../../components/addProduct/AddProduct";
-import { productCustomStyle } from "../../CustomStyle";
 
-Modal.setAppElement("#root");
-
-const ProductPage = () => {
+const PetsPage = () => {
   const { data } = useQuery<[]>({
-    queryKey: ["productPage"],
+    queryKey: ["petsPage"],
     queryFn: () =>
       axios
         // .get(`${import.meta.env.VITE_APP_API_URL}/api/order/list`)
@@ -32,71 +26,52 @@ const ProductPage = () => {
       width: 100,
     },
     {
-      field: "productName",
-      headerName: "productName",
+      field: "petName",
+      headerName: "petName",
       headerAlign: "center",
       align: "center",
       width: 200,
     },
     {
-      field: "description",
-      headerName: "description",
+      field: "gender",
+      headerName: "gender",
       headerAlign: "center",
       align: "center",
       width: 200,
     },
     {
-      field: "category",
-      headerName: "category",
+      field: "weight",
+      headerName: "weight",
+      headerAlign: "center",
+      align: "center",
+      width: 100,
+    },
+    {
+      field: "owner",
+      headerName: "owner",
       headerAlign: "center",
       align: "center",
       width: 200,
       // Do dropdown here
     },
     {
-      field: "quantity",
-      headerName: "quantity",
-      headerAlign: "center",
-      align: "center",
-      width: 100,
-    },
-    {
-      field: "vendorPrice",
-      headerName: "vendorPrice",
-      headerAlign: "center",
-      align: "center",
-      width: 100,
-    },
-    {
-      field: "retailPrice",
-      headerName: "retailPrice",
-      headerAlign: "center",
-      align: "center",
-      width: 100,
-    },
-    {
-      field: "vendor",
-      headerName: "vendor",
-      headerAlign: "center",
-      align: "center",
-      width: 200,
-    },
-    {
-      field: "status",
-      headerName: "status",
-      headerAlign: "center",
-      align: "center",
-      width: 200,
-    },
-    {
       field: "action",
       headerName: "Action Button",
       headerAlign: "center",
       align: "center",
-      width: 300,
+      width: 400,
       renderCell: (params) => {
         return (
           <div className="action-btns">
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/orders/${params.row.id}`}
+            >
+              <button className="action-btn view">
+                <ManageSearch />
+                View
+              </button>
+            </Link>
             <Link
               style={{ textDecoration: "none" }}
               to={`/orders/${params.row.id}`}
@@ -121,30 +96,17 @@ const ProductPage = () => {
     },
   ];
 
-  const [isProductModalOpen, setIsProductModalOpen] = useState<boolean>(false);
-
-  const toggleProductModal = () => {
-    setIsProductModalOpen(!isProductModalOpen);
-  };
-
   return (
-    <div className="category-page">
+    <div>
       <SearchBar />
-      <button className="add-category-btn" onClick={toggleProductModal}>
+      <button className="add-category-btn">
         Add Product <Add />
       </button>
       <section className="category-page-datagrid">
         <DataGrid rows={data ?? []} columns={orderColumn} />
       </section>
-      <Modal
-        isOpen={isProductModalOpen}
-        onRequestClose={toggleProductModal}
-        style={productCustomStyle}
-      >
-        <AddProduct toggleProductModal={toggleProductModal} />
-      </Modal>
     </div>
   );
 };
 
-export default ProductPage;
+export default PetsPage;

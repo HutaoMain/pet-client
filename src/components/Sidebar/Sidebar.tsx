@@ -85,16 +85,16 @@ const Sidebar = () => {
               </span>
             </li>
           </Link>
-          <Link to="/appointment" style={{ textDecoration: "none" }}>
+          <Link to="/appointments" style={{ textDecoration: "none" }}>
             <li
               className={
-                location.pathname === "/appointment" ? "sidebar-active" : ""
+                location.pathname === "/appointments" ? "sidebar-active" : ""
               }
             >
               {/* <CreditCardIcon className="icon" /> */}
               <span
                 className={
-                  location.pathname === "/appointment"
+                  location.pathname === "/appointments"
                     ? "sidebar-active"
                     : "sidebar-title-span"
                 }
