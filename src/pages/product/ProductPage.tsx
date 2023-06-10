@@ -2,14 +2,14 @@ import "./ProductPage.css";
 import SearchBar from "../../components/search/SearchBar";
 import axios from "axios";
 import Modal from "react-modal";
+import AddProduct from "../../components/addProduct/AddProduct";
 
 import { useQuery } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Add, Delete, ModeEdit } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import AddProduct from "../../components/addProduct/AddProduct";
-import { productCustomStyle } from "../../CustomStyle";
+import { productCustomStyle } from "../../ZCustomStyle/CustomStyle";
 
 Modal.setAppElement("#root");
 

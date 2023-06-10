@@ -1,0 +1,20 @@
+.addcategory-item-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.addcategory-input {
+  height: 28px;
+  font-size: 18px;
+  width: 100px;
+}
+
+.addcategory-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  gap: 10px;
+}

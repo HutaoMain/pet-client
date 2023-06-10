@@ -7,6 +7,8 @@ import ProductPage from "./pages/product/ProductPage";
 import PetsPage from "./pages/pets/PetsPage";
 import Appointments from "./pages/appointment/Appointments";
 import StaffPage from "./pages/staff/StaffPage";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="staff" element={<StaffPage />} />
         </Routes>
       </section>
+      <ToastContainer />
     </div>
   );
 }
