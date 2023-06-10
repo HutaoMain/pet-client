@@ -2,7 +2,7 @@ import "./PetsPage.css";
 import axios from "axios";
 import SearchBar from "../../components/search/SearchBar";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Add, Delete, ModeEdit, ManageSearch } from "@mui/icons-material";
 import { Link } from "react-router-dom";

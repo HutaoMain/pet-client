@@ -4,7 +4,7 @@ import axios from "axios";
 import Modal from "react-modal";
 import AddProduct from "../../components/addProduct/AddProduct";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Add, Delete, ModeEdit } from "@mui/icons-material";
 import { Link } from "react-router-dom";
