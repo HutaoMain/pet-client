@@ -10,11 +10,11 @@ import {
   categoryCustomStyle,
   confirmationModalCustomStyle,
 } from "../../ZCustomStyle/CustomStyle";
-import AddCategory from "../../components/addCategory/AddCategory";
+import AddCategory from "../../components/CategoryComponents/addCategory/AddCategory";
 import { CategoryInterface } from "../../types/Types";
-import Confirmation from "../../components/confirmationModal/Confirmation";
+import Confirmation from "../../components/ConfirmationModal/Confirmation";
 import axios from "axios";
-import UpdateCategory from "../../components/updateCategory/UpdateCategory";
+import UpdateCategory from "../../components/CategoryComponents/updateCategory/UpdateCategory";
 
 const CategoryPage = () => {
   const { data } = useQuery<CategoryInterface[]>("categoryPage", () =>

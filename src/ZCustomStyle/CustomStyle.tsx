@@ -8,7 +8,7 @@ export const productCustomStyle = {
     transform: "translate(-50%, -50%)",
     borderRadius: "30px",
     width: "400px",
-    height: "360px",
+    height: "430px",
   },
 };
 
@@ -36,5 +36,19 @@ export const confirmationModalCustomStyle = {
     transform: "translate(-50%, -50%)",
     borderRadius: "30px",
     padding: "50px",
+  },
+};
+
+export const staffModalCustomStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    borderRadius: "30px",
+    width: "400px",
+    height: "470px",
   },
 };

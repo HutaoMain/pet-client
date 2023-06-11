@@ -2,35 +2,65 @@ import "./ProductPage.css";
 import SearchBar from "../../components/search/SearchBar";
 import axios from "axios";
 import Modal from "react-modal";
-import AddProduct from "../../components/addProduct/AddProduct";
+import AddProduct from "../../components/ProductComponents/addProduct/AddProduct";
 
 import { useQuery } from "react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Add, Delete, ModeEdit } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { productCustomStyle } from "../../ZCustomStyle/CustomStyle";
+import { useEffect, useState } from "react";
+import {
+  confirmationModalCustomStyle,
+  productCustomStyle,
+} from "../../ZCustomStyle/CustomStyle";
+import { getProductInterface } from "../../types/Types";
+import Confirmation from "../../components/ConfirmationModal/Confirmation";
+import UpdateProduct from "../../components/ProductComponents/UpdateProduct/UpdateProduct";
 
 Modal.setAppElement("#root");
 
 const ProductPage = () => {
-  const { data } = useQuery<[]>({
+  const { data } = useQuery<getProductInterface[]>({
     queryKey: ["productPage"],
     queryFn: () =>
       axios
-        // .get(`${import.meta.env.VITE_APP_API_URL}/api/order/list`)
-        .get(`https://mocki.io/v1/3e266c30-759f-48ca-8d64-a78178a15ab1`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/api/product/list`)
         .then((res) => res.data),
   });
 
+  const [paramsId, setParamsId] = useState<string>("");
+  const [list, setList] = useState<getProductInterface[]>();
+
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
+
+  const toggleModalUpdate = (id: any) => {
+    setParamsId(id);
+    setIsUpdateModalOpen(!isUpdateModalOpen);
+  };
+
+  const toggleConfimationModal = (id: any) => {
+    console.log("logging id", id);
+    setParamsId(id);
+    setIsConfirmationOpen(!isConfirmationOpen);
+  };
+
+  useEffect(() => {
+    setList(data || []);
+  }, [data]);
+
+  const handleDelete = async (id: any) => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_APP_API_URL}/api/product/delete/${id}`
+      );
+
+      setList(list?.filter((item) => item._id !== id));
+      window.location.reload();
+    } catch (err) {}
+  };
+
   const orderColumn: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "ID",
-      headerAlign: "center",
-      align: "center",
-      width: 100,
-    },
     {
       field: "productName",
       headerName: "productName",
@@ -97,24 +127,34 @@ const ProductPage = () => {
       renderCell: (params) => {
         return (
           <div className="action-btns">
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/orders/${params.row.id}`}
+            <button
+              className="action-btn edit"
+              onClick={() => toggleModalUpdate(params.row._id)}
             >
-              <button className="action-btn edit">
-                <ModeEdit />
-                Edit
-              </button>
-            </Link>
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/orders/${params.row.id}`}
+              <ModeEdit />
+              Edit
+            </button>
+
+            <button
+              className="action-btn delete"
+              onClick={() => toggleConfimationModal(params.row._id)}
             >
-              <button className="action-btn delete">
-                <Delete />
-                Delete
-              </button>
-            </Link>
+              <Delete />
+              Delete
+            </button>
+            <Modal
+              isOpen={isConfirmationOpen}
+              onRequestClose={toggleConfimationModal}
+              style={confirmationModalCustomStyle}
+              contentLabel="My dialog"
+            >
+              <Confirmation
+                action="delete"
+                whatItem="category"
+                btnConfirm={() => handleDelete(paramsId)}
+                closeModal={toggleConfimationModal}
+              />
+            </Modal>
           </div>
         );
       },
@@ -134,7 +174,11 @@ const ProductPage = () => {
         Add Product <Add />
       </button>
       <section className="category-page-datagrid">
-        <DataGrid rows={data ?? []} columns={orderColumn} />
+        <DataGrid
+          rows={data ?? []}
+          columns={orderColumn}
+          getRowId={(row) => row._id}
+        />
       </section>
       <Modal
         isOpen={isProductModalOpen}
@@ -142,6 +186,16 @@ const ProductPage = () => {
         style={productCustomStyle}
       >
         <AddProduct toggleProductModal={toggleProductModal} />
+      </Modal>
+      <Modal
+        isOpen={isUpdateModalOpen}
+        onRequestClose={toggleModalUpdate}
+        style={productCustomStyle}
+      >
+        <UpdateProduct
+          toggleModalUpdate={toggleModalUpdate}
+          paramsId={paramsId}
+        />
       </Modal>
     </div>
   );

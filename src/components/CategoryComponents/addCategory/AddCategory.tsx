@@ -1,36 +1,20 @@
-import React, { useEffect } from "react";
+import "./AddCategory.css";
+import React from "react";
 import { Close, Check } from "@mui/icons-material";
 import { useState } from "react";
-import { CategoryInterface } from "../../types/Types";
+import { CategoryInterface } from "../../../types/Types";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useQuery } from "react-query";
 
 interface props {
-  toggleModalUpdateCategory: any;
-  paramsId: string;
+  toggleCategoryModal: () => void;
 }
 
-const UpdateCategory = ({ toggleModalUpdateCategory, paramsId }: props) => {
-  const { data } = useQuery<CategoryInterface>({
-    queryKey: ["getCategoryByIdThenUpdate"],
-    queryFn: async () =>
-      await axios
-        .get(`${import.meta.env.VITE_APP_API_URL}/api/category/${paramsId}`)
-        .then((res) => res.data),
-  });
-
+const AddCategory = ({ toggleCategoryModal }: props) => {
   const [categoryState, setCategoryState] = useState<CategoryInterface>({
     _id: "",
     categoryName: "",
   });
-
-  useEffect(() => {
-    setCategoryState({
-      _id: data?._id || "",
-      categoryName: data?.categoryName || "",
-    });
-  }, [paramsId, data]);
 
   const categoryNameChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -42,13 +26,13 @@ const UpdateCategory = ({ toggleModalUpdateCategory, paramsId }: props) => {
   };
 
   const handleSubmit = async () => {
-    await axios.put(
-      `${import.meta.env.VITE_APP_API_URL}/api/category/update/${paramsId}`,
+    await axios.post(
+      `${import.meta.env.VITE_APP_API_URL}/api/category/create`,
       {
         categoryName: categoryState.categoryName,
       }
     );
-    toast.success("Sucessfully updated category!", {
+    toast.success("Sucessfully added category!", {
       position: "bottom-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -62,11 +46,9 @@ const UpdateCategory = ({ toggleModalUpdateCategory, paramsId }: props) => {
     }, 2000);
   };
 
-  console.log(categoryState.categoryName);
-
   return (
     <div style={{ backgroundColor: "#ffff" }}>
-      <div style={{ padding: "10px 0", fontSize: "20px" }}>Edit Category</div>
+      <div style={{ padding: "10px 0", fontSize: "20px" }}>Add Category</div>
       <hr style={{ marginBottom: "20px" }} />
       <section className="addcategory-item-section" style={{ width: "100%" }}>
         <div className="addproduct-item-list" style={{ width: "50%" }}>
@@ -81,10 +63,7 @@ const UpdateCategory = ({ toggleModalUpdateCategory, paramsId }: props) => {
         </div>
       </section>
       <div className="addcategory-btn-container">
-        <button
-          className="addproduct-btn close"
-          onClick={toggleModalUpdateCategory}
-        >
+        <button className="addproduct-btn close" onClick={toggleCategoryModal}>
           <Close /> Close
         </button>
         <button className="addproduct-btn submit" onClick={handleSubmit}>
@@ -95,4 +74,4 @@ const UpdateCategory = ({ toggleModalUpdateCategory, paramsId }: props) => {
   );
 };
 
-export default UpdateCategory;
+export default AddCategory;

@@ -1,45 +1,38 @@
-import "./StaffPage.css";
-import axios from "axios";
-import { useQuery } from "react-query";
+import React, { useState } from "react";
+import "./AppointmentPage.css";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import { Search, Add, ModeEdit, Delete } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Add, Delete, ModeEdit } from "@mui/icons-material";
-import { getStaffInterface } from "../../types/Types";
-import { useEffect, useState } from "react";
+import moment from "moment";
 import Modal from "react-modal";
+import Confirmation from "../../components/ConfirmationModal/Confirmation";
+import axios from "axios";
+import { getAppointmentInterface } from "../../types/Types";
 import {
   confirmationModalCustomStyle,
   staffModalCustomStyle,
 } from "../../ZCustomStyle/CustomStyle";
-import Confirmation from "../../components/ConfirmationModal/Confirmation";
-import UpdateStaff from "../../components/StaffComponents/UpdateStaff/UpdateStaff";
-import AddStaff from "../../components/StaffComponents/AddStaff/AddStaff";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
+import UpdateAppointment from "../../components/AppointmentComponents/UpdateAppointment/UpdateAppointment";
+import { useQuery } from "react-query";
+import AddAppointment from "../../components/AppointmentComponents/AddAppointment/AddAppointment";
 
 Modal.setAppElement("#root");
 
-const StaffPage = () => {
-  const { data } = useQuery<getStaffInterface[]>({
-    queryKey: ["staffPage"],
+const AppointmentPage = () => {
+  const { data } = useQuery<getAppointmentInterface[]>({
+    queryKey: ["appointmentPage"],
     queryFn: () =>
       axios
-        .get(`${import.meta.env.VITE_APP_API_URL}/api/staff/list`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/api/appointment/list`)
         .then((res) => res.data),
   });
 
-  const [list, setList] = useState<getStaffInterface[]>();
-
+  const [list, setList] = useState<getAppointmentInterface[]>();
+  const [paramsId, setParamsId] = useState<string>("");
   const [openAdd, setOpenAdd] = useState<boolean>(false);
   const [openUpdate, setOpenUpdate] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
-
-  const [paramsId, setParamsId] = useState<string>("");
-
-  const toggleModalAdd = (id: any) => {
-    setParamsId(id);
-    setOpenAdd(!openAdd);
-  };
 
   const toggleModalUpdate = (id: any) => {
     setParamsId(id);
@@ -51,14 +44,10 @@ const StaffPage = () => {
     setOpenDelete(!openDelete);
   };
 
-  useEffect(() => {
-    setList(data || []);
-  }, [data]);
-
   const handleDelete = async (id: any) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_APP_API_URL}/api/staff/delete/${id}`
+        `${import.meta.env.VITE_APP_API_URL}/api/appointment/delete/${id}`
       );
 
       setList(list?.filter((item) => item._id !== id));
@@ -68,48 +57,34 @@ const StaffPage = () => {
 
   const orderColumn: GridColDef[] = [
     {
-      field: "employeeName",
-      headerName: "Employee Name",
+      field: "petName",
+      headerName: "Pet Name",
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "employeeId",
-      headerName: "Employee ID",
+      field: "ownerName",
+      headerName: "Owner Name",
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "role",
-      headerName: "Role",
+      field: "description",
+      headerName: "Description",
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "contactNumber",
-      headerName: "Contact Number",
+      field: "appointmentDate",
+      headerName: "Appointment Date",
       headerAlign: "center",
       align: "center",
       flex: 1,
-    },
-    {
-      field: "address",
-      headerName: "Address",
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-      // Do dropdown here
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-      // Do dropdown here
+      valueFormatter: (params) =>
+        moment(params.value).format("DD/MM/YYYY hh:mm A"),
     },
     {
       field: "action",
@@ -120,11 +95,6 @@ const StaffPage = () => {
       renderCell: (params) => {
         return (
           <div className="action-btns">
-            {/* <button className="action-btn view">
-              <ManageSearch />
-              View
-            </button> */}
-
             <button
               className="action-btn edit"
               onClick={() => toggleModalUpdate(params.row._id)}
@@ -152,12 +122,16 @@ const StaffPage = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredStaff = data?.filter((staff) => {
+  const filteredAppointments = data?.filter((appointment) => {
     return (
-      staff.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      staff.employeeId.toLowerCase().includes(searchTerm.toLowerCase())
+      appointment.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      appointment.ownerName.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
+
+  const toggleModalAdd = () => {
+    setOpenAdd(!openAdd);
+  };
 
   return (
     <div>
@@ -167,37 +141,38 @@ const StaffPage = () => {
           alignItems: "center",
           gap: "20px",
           padding: "0",
-          marginTop: "20px",
+          margin: "20px 0",
         }}
       >
         <InputBase
-          placeholder="Search by Employee Name or Employee ID"
+          placeholder="Search by Pet Name or Owner Name"
           value={searchTerm}
           onChange={handleSearch}
-          sx={{ width: "400px", border: "2px solid black", padding: "0 20px" }}
           endAdornment={
             <IconButton>
-              <SearchIcon />
+              <Search />
             </IconButton>
           }
         />
         <button className="add-category-btn" onClick={toggleModalAdd}>
-          Add Staff <Add />
+          Add Appointment <Add />
         </button>
       </div>
       <section className="category-page-datagrid">
         <DataGrid
-          rows={filteredStaff ?? []}
+          rows={filteredAppointments ?? []}
           columns={orderColumn}
           getRowId={(row) => row._id}
         />
       </section>
+
       <Modal
         isOpen={openAdd}
         onRequestClose={toggleModalAdd}
         style={staffModalCustomStyle}
+        contentLabel="My dialog"
       >
-        <AddStaff toggleModalAdd={toggleModalAdd} />
+        <AddAppointment toggleModalAdd={toggleModalAdd} paramsId={paramsId} />
       </Modal>
 
       <Modal
@@ -206,7 +181,7 @@ const StaffPage = () => {
         style={staffModalCustomStyle}
         contentLabel="My dialog"
       >
-        <UpdateStaff
+        <UpdateAppointment
           toggleModalUpdate={toggleModalUpdate}
           paramsId={paramsId}
         />
@@ -229,4 +204,4 @@ const StaffPage = () => {
   );
 };
 
-export default StaffPage;
+export default AppointmentPage;

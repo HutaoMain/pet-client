@@ -1,14 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Sidebar from "./components/sidebar/Sidebar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryPage from "./pages/category/CategoryPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import ProductPage from "./pages/product/ProductPage";
 import PetsPage from "./pages/pets/PetsPage";
-import Appointments from "./pages/appointment/Appointments";
+import AppointmentPage from "./pages/appointment/AppointmentPage";
 import StaffPage from "./pages/staff/StaffPage";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
 
 function App() {
   return (
@@ -22,7 +25,7 @@ function App() {
           <Route path="categories" element={<CategoryPage />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="pets" element={<PetsPage />} />
-          <Route path="appointments" element={<Appointments />} />
+          <Route path="appointments" element={<AppointmentPage />} />
           <Route path="staff" element={<StaffPage />} />
         </Routes>
       </section>
