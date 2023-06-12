@@ -60,17 +60,34 @@ export interface getStaffInterface {
   gender: string;
 }
 
+export interface getMedicalHistory {
+  _id: string;
+  petId: string;
+  veterinarian: string;
+  medicalConditions: string;
+  medications: string;
+  allergies: string;
+  medicalNotes: string;
+  appointmentDate: string;
+}
+
 export interface addAppointmentInterface {
-  petName: string;
-  ownerName: string;
-  description: string;
+  petId: string;
   appointmentDate: Date;
+  veterinarian: string;
+  medicalConditions: string;
+  medications: string;
+  allergies: string;
+  medicalNotes: string;
 }
 
 export interface getAppointmentInterface {
   _id: string;
-  petName: string;
-  ownerName: string;
-  description: string;
+  petId: string;
   appointmentDate: Date;
+  veterinarian: string;
+  medicalConditions: string;
+  medications: string;
+  allergies: string;
+  medicalNotes: string;
 }

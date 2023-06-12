@@ -49,6 +49,6 @@ export const staffModalCustomStyle = {
     transform: "translate(-50%, -50%)",
     borderRadius: "30px",
     width: "400px",
-    height: "470px",
+    height: "550px",
   },
 };

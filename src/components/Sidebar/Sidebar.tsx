@@ -85,13 +85,13 @@ const Sidebar = () => {
               </span>
             </li>
           </Link>
-          <Link to="/appointments" style={{ textDecoration: "none" }}>
+          {/* <Link to="/appointments" style={{ textDecoration: "none" }}>
             <li
               className={
                 location.pathname === "/appointments" ? "sidebar-active" : ""
               }
             >
-              {/* <CreditCardIcon className="icon" /> */}
+            <CreditCardIcon className="icon" /> 
               <span
                 className={
                   location.pathname === "/appointments"
@@ -102,7 +102,7 @@ const Sidebar = () => {
                 Appointments
               </span>
             </li>
-          </Link>
+          </Link> */}
           {/*  */}
           <p className="sidebar-title">Staff Management</p>
           <Link to="/staff" style={{ textDecoration: "none" }}>
@@ -121,64 +121,29 @@ const Sidebar = () => {
               </span>
             </li>
           </Link>
-          {/*  */}
-          <p className="sidebar-title">Supplier Management</p>
-          <Link to="/supplier" style={{ textDecoration: "none" }}>
-            <li
-              className={
-                location.pathname === "/supplier" ? "sidebar-active" : ""
-              }
-            >
-              {/* <PersonOutlineIcon className="icon" /> */}
-              <span
-                className={
-                  location.pathname === "/supplier"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Suppliers
-              </span>
-            </li>
-          </Link>
-          <Link to="/deliveries" style={{ textDecoration: "none" }}>
-            <li
-              className={
-                location.pathname === "/deliveries" ? "sidebar-active" : ""
-              }
-            >
-              {/* <PersonOutlineIcon className="icon" /> */}
-              <span
-                className={
-                  location.pathname === "/deliveries"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Orders/Deliveries
-              </span>
-            </li>
-          </Link>
-          {/*  */}
-          <p className="sidebar-title">Customer Relationship Management</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
-            <li
-              className={location.pathname === "/users" ? "sidebar-active" : ""}
-            >
-              {/* <PersonOutlineIcon className="icon" /> */}
-              <span
-                className={
-                  location.pathname === "/users"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Users
-              </span>
-            </li>
-          </Link>
 
-          {/*  */}
+          {/*  
+           <p className="sidebar-title">Customer Relationship Management</p>
+          <Link to="/veterinarians" style={{ textDecoration: "none" }}>
+            <li
+              className={
+                location.pathname === "/veterinarians" ? "sidebar-active" : ""
+              }
+            >
+           <PersonOutlineIcon className="icon" /> 
+              <span
+                className={
+                  location.pathname === "/veterinarians"
+                    ? "sidebar-active"
+                    : "sidebar-title-span"
+                }
+              >
+                Veterinarians
+              </span>
+            </li>
+          </Link> */}
+
+          {/* 
           <p className="sidebar-title">Point of Sale</p>
           <Link to="/transactions" style={{ textDecoration: "none" }}>
             <li
@@ -186,7 +151,7 @@ const Sidebar = () => {
                 location.pathname === "/transactions" ? "sidebar-active" : ""
               }
             >
-              {/* <PersonOutlineIcon className="icon" /> */}
+         
               <span
                 className={
                   location.pathname === "/transactions"
@@ -197,7 +162,7 @@ const Sidebar = () => {
                 Transactions
               </span>
             </li>
-          </Link>
+          </Link> */}
 
           {/*  */}
           <p className="sidebar-title">Promotion</p>

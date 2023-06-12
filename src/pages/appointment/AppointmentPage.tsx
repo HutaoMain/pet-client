@@ -122,19 +122,12 @@ const AppointmentPage = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredAppointments = data?.filter((appointment) => {
-    return (
-      appointment.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      appointment.ownerName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
-
   const toggleModalAdd = () => {
     setOpenAdd(!openAdd);
   };
 
   return (
-    <div>
+    <div className="category-page">
       <div
         style={{
           display: "flex",
@@ -160,7 +153,7 @@ const AppointmentPage = () => {
       </div>
       <section className="category-page-datagrid">
         <DataGrid
-          rows={filteredAppointments ?? []}
+          rows={data ?? []}
           columns={orderColumn}
           getRowId={(row) => row._id}
         />

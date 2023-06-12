@@ -160,7 +160,7 @@ const StaffPage = () => {
   });
 
   return (
-    <div>
+    <div className="category-page">
       <div
         style={{
           display: "flex",

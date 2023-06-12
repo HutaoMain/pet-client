@@ -19,6 +19,7 @@
   flex: 1;
   height: 30px;
   font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .addproduct-input-number::-webkit-inner-spin-button,

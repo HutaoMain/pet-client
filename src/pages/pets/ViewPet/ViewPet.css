@@ -1,0 +1,27 @@
+.viewpet {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  flex-direction: column;
+}
+
+.viewpet-basicinfo {
+  width: 85%;
+  height: 200px;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 50px;
+  border-radius: 20px;
+}
+
+.medical-history-grid {
+  width: 90%;
+  height: 700px;
+}
+
+.medical-history {
+  margin-top: 20px;
+}

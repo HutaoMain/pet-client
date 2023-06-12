@@ -7,14 +7,13 @@ import { toast } from "react-toastify";
 import { useQuery } from "react-query";
 
 const UpdateAppointment = ({ toggleModalUpdate, paramsId }: any) => {
-  const [appointmentInfo, setAppointmentInfo] =
-    useState<getAppointmentInterface>({
-      _id: "",
-      petName: "",
-      ownerName: "",
-      description: "",
-      appointmentDate: new Date(),
-    });
+  const [appointmentInfo, setAppointmentInfo] = useState({
+    _id: "",
+    petName: "",
+    ownerName: "",
+    description: "",
+    appointmentDate: new Date(),
+  });
 
   const { data } = useQuery<getAppointmentInterface>({
     queryKey: ["appointmentUpdate"],

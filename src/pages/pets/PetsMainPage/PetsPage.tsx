@@ -12,15 +12,17 @@ import {
 import {
   confirmationModalCustomStyle,
   productCustomStyle,
-} from "../../ZCustomStyle/CustomStyle";
-import AddPet from "../../components/PetComponents/AddPet/AddPet";
+} from "../../../ZCustomStyle/CustomStyle";
+
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { getPetInterface } from "../../types/Types";
-import Confirmation from "../../components/ConfirmationModal/Confirmation";
-import UpdatePet from "../../components/PetComponents/UpdatePet/UpdatePet";
+import { getPetInterface } from "../../../types/Types";
+import Confirmation from "../../../components/ConfirmationModal/Confirmation";
+import AddPet from "../../../components/PetComponents/AddPet/AddPet";
+import UpdatePet from "../../../components/PetComponents/UpdatePet/UpdatePet";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
+import { Link } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -34,15 +36,14 @@ const PetsPage = () => {
   });
 
   const [list, setList] = useState<getPetInterface[]>();
-  const [openView, setOpenView] = useState<boolean>(false);
   const [openUpdate, setOpenUpdate] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
 
   const [paramsId, setParamsId] = useState<string>("");
 
-  const toggleModalView = (id: any) => {
-    setParamsId(id);
-    setOpenView(!openView);
+  const toggleAddModal = () => {
+    setIsAddModalOpen(!isAddModalOpen);
   };
 
   const toggleModalUpdate = (id: any) => {
@@ -109,13 +110,15 @@ const PetsPage = () => {
       renderCell: (params) => {
         return (
           <div className="action-btns">
-            <button
-              className="action-btn view"
-              onClick={() => toggleModalView(params.row._id)}
+            <Link
+              to={`/pets/${params.row._id}`}
+              style={{ textDecoration: "none" }}
             >
-              <ManageSearch />
-              View
-            </button>
+              <button className="action-btn view">
+                <ManageSearch />
+                View
+              </button>
+            </Link>
 
             <button
               className="action-btn edit"
@@ -132,13 +135,6 @@ const PetsPage = () => {
               <Delete />
               Delete
             </button>
-            <Modal
-              isOpen={isAddModalOpen}
-              onRequestClose={toggleAddModal}
-              style={productCustomStyle}
-            >
-              <AddPet toggleAddModal={toggleAddModal} />
-            </Modal>
             <Modal
               isOpen={openDelete}
               onRequestClose={toggleModalDelete}
@@ -169,12 +165,6 @@ const PetsPage = () => {
     },
   ];
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
-
-  const toggleAddModal = () => {
-    setIsAddModalOpen(!isAddModalOpen);
-  };
-
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,7 +179,7 @@ const PetsPage = () => {
   });
 
   return (
-    <div>
+    <div className="category-page">
       <div
         style={{
           display: "flex",
@@ -203,6 +193,7 @@ const PetsPage = () => {
           placeholder="Search by Pet Name or Owner Name"
           value={searchTerm}
           onChange={handleSearch}
+          sx={{ width: "400px", border: "2px solid black", padding: "0 20px" }}
           endAdornment={
             <IconButton>
               <Search />
@@ -221,6 +212,13 @@ const PetsPage = () => {
           getRowId={(row) => row._id}
         />
       </section>
+      <Modal
+        isOpen={isAddModalOpen}
+        onRequestClose={toggleAddModal}
+        style={productCustomStyle}
+      >
+        <AddPet toggleAddModal={toggleAddModal} />
+      </Modal>
     </div>
   );
 };
