@@ -99,6 +99,7 @@ const AddStaff = ({ toggleModalAdd }: any) => {
       <section className="addproduct-item-list" style={{ width: "100%" }}>
         <label>Gender</label>
         <select
+          className="addproduct-input"
           name="gender"
           value={staffInfo.gender}
           onChange={onChangeHandler}

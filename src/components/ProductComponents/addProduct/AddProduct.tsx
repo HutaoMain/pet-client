@@ -112,6 +112,14 @@ const AddProduct = ({ toggleProductModal }: props) => {
       </section>
 
       <section className="addproduct-item-list" style={{ width: "100%" }}>
+        <label>Status</label>
+        <select name="" id="" className="addproduct-input ">
+          <option value="">In Stock</option>
+          <option value="">Out of Stock</option>
+        </select>
+      </section>
+
+      <section className="addproduct-item-list" style={{ width: "100%" }}>
         <label style={{ marginTop: "10px" }}>Vendor Name: </label>
         <input
           className="addproduct-input"

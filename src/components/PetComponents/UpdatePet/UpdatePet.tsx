@@ -11,6 +11,7 @@ const UpdatePet = ({ toggleModalUpdate, paramsId }: any) => {
     gender: "",
     weight: "",
     owner: "",
+    ownerEmail: "",
   });
 
   const { data } = useQuery<getPetInterface>({
@@ -27,6 +28,7 @@ const UpdatePet = ({ toggleModalUpdate, paramsId }: any) => {
       gender: data?.gender || "",
       weight: data?.weight || "",
       owner: data?.owner || "",
+      ownerEmail: data?.ownerEmail || "",
     });
   }, [paramsId, data]);
 
@@ -108,6 +110,17 @@ const UpdatePet = ({ toggleModalUpdate, paramsId }: any) => {
           type="text"
           name="owner"
           value={petInfo.owner}
+          onChange={onChangeHandler}
+        />
+      </section>
+
+      <section className="addproduct-item-list" style={{ width: "100%" }}>
+        <label>Owner Email</label>
+        <input
+          className="addproduct-input"
+          type="text"
+          name="ownerEmail"
+          value={petInfo.ownerEmail}
           onChange={onChangeHandler}
         />
       </section>

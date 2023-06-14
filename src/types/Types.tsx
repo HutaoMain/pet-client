@@ -31,6 +31,7 @@ export interface addPetInterface {
   gender: string;
   weight: string;
   owner: string;
+  ownerEmail: string;
 }
 
 export interface getPetInterface {
@@ -39,6 +40,7 @@ export interface getPetInterface {
   gender: string;
   weight: string;
   owner: string;
+  ownerEmail: string;
 }
 
 export interface addStaffInterface {
@@ -90,4 +92,14 @@ export interface getAppointmentInterface {
   medications: string;
   allergies: string;
   medicalNotes: string;
+}
+
+export interface loginInterface {
+  email: string;
+  password: string;
+}
+
+export interface getMonthlyData {
+  _id: string;
+  count: number;
 }

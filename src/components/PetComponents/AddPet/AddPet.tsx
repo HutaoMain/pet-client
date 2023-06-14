@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./AddPet.css";
 import { addPetInterface } from "../../../types/Types";
 import { Check, Close } from "@mui/icons-material";
 import axios from "axios";
@@ -11,6 +10,7 @@ const AddPet = ({ toggleAddModal }: any) => {
     gender: "",
     weight: "",
     owner: "",
+    ownerEmail: "",
   });
 
   const onChangeHandler = (
@@ -65,6 +65,7 @@ const AddPet = ({ toggleAddModal }: any) => {
       <section className="addproduct-item-list" style={{ width: "100%" }}>
         <label>Pet Gender</label>
         <select
+          className="addproduct-input"
           name="gender"
           value={addPetInfo.gender}
           onChange={onChangeHandler}
@@ -92,6 +93,17 @@ const AddPet = ({ toggleAddModal }: any) => {
           type="text"
           name="owner"
           value={addPetInfo.owner}
+          onChange={onChangeHandler}
+        />
+      </section>
+
+      <section className="addproduct-item-list" style={{ width: "100%" }}>
+        <label>Owner Email</label>
+        <input
+          className="addproduct-input"
+          type="text"
+          name="ownerEmail"
+          value={addPetInfo.ownerEmail}
           onChange={onChangeHandler}
         />
       </section>

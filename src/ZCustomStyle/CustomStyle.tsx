@@ -8,7 +8,7 @@ export const productCustomStyle = {
     transform: "translate(-50%, -50%)",
     borderRadius: "30px",
     width: "400px",
-    height: "430px",
+    height: "520px",
   },
 };
 

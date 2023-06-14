@@ -1,0 +1,26 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 24px;
+}
+
+.widget {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.widget-icon {
+  margin-right: 8px;
+}
+
+.chart-container {
+  height: 300px;
+}

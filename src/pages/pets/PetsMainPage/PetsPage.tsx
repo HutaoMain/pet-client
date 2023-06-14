@@ -74,32 +74,38 @@ const PetsPage = () => {
   const orderColumn: GridColDef[] = [
     {
       field: "petName",
-      headerName: "petName",
+      headerName: "Pet Name",
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
       field: "gender",
-      headerName: "gender",
+      headerName: "Gender",
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
       field: "weight",
-      headerName: "weight",
+      headerName: "Weight",
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
       field: "owner",
-      headerName: "owner",
+      headerName: "Owner",
       headerAlign: "center",
       align: "center",
       flex: 1,
-      // Do dropdown here
+    },
+    {
+      field: "ownerEmail",
+      headerName: "Owner Email Address",
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
     },
     {
       field: "action",

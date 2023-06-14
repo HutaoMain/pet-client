@@ -69,6 +69,18 @@ const ViewPet = () => {
             {data?.owner}
           </span>
         </label>
+        <label>
+          Owner Email Address:
+          <span
+            style={{
+              textDecoration: "underline",
+              paddingLeft: "10px",
+              fontSize: "18px",
+            }}
+          >
+            {data?.ownerEmail}
+          </span>
+        </label>
       </div>
       <MedicalHistory />
     </div>

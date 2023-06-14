@@ -1,0 +1,29 @@
+.email-composer {
+  width: 430px;
+  height: 350px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.input-field,
+.textarea-field {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.send-button {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: #45a049;
+}

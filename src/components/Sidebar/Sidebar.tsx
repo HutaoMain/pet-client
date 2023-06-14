@@ -1,8 +1,40 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
+import { useState } from "react";
+import Modal from "react-modal";
+import PromotionalEmail from "../PromotionalEmail/PromotionalEmail";
+import useAuthStore from "../../zustand/AuthStore";
+
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the opacity as needed
+    zIndex: 99999,
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: "none",
+    borderRadius: "8px",
+    padding: "20px",
+  },
+};
+
+Modal.setAppElement("#root");
 
 const Sidebar = () => {
   const location = useLocation();
+
+  const clearUser = useAuthStore((state) => state.clearUser);
+
+  const [open, setOpen] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setOpen(!open);
+  };
 
   return (
     <div className="sidebar">
@@ -85,25 +117,7 @@ const Sidebar = () => {
               </span>
             </li>
           </Link>
-          {/* <Link to="/appointments" style={{ textDecoration: "none" }}>
-            <li
-              className={
-                location.pathname === "/appointments" ? "sidebar-active" : ""
-              }
-            >
-            <CreditCardIcon className="icon" /> 
-              <span
-                className={
-                  location.pathname === "/appointments"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Appointments
-              </span>
-            </li>
-          </Link> */}
-          {/*  */}
+
           <p className="sidebar-title">Staff Management</p>
           <Link to="/staff" style={{ textDecoration: "none" }}>
             <li
@@ -122,74 +136,36 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          {/*  
-           <p className="sidebar-title">Customer Relationship Management</p>
-          <Link to="/veterinarians" style={{ textDecoration: "none" }}>
-            <li
-              className={
-                location.pathname === "/veterinarians" ? "sidebar-active" : ""
-              }
-            >
-           <PersonOutlineIcon className="icon" /> 
-              <span
-                className={
-                  location.pathname === "/veterinarians"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Veterinarians
-              </span>
-            </li>
-          </Link> */}
-
-          {/* 
-          <p className="sidebar-title">Point of Sale</p>
-          <Link to="/transactions" style={{ textDecoration: "none" }}>
-            <li
-              className={
-                location.pathname === "/transactions" ? "sidebar-active" : ""
-              }
-            >
-         
-              <span
-                className={
-                  location.pathname === "/transactions"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Transactions
-              </span>
-            </li>
-          </Link> */}
-
-          {/*  */}
           <p className="sidebar-title">Promotion</p>
-          <Link to="/email" style={{ textDecoration: "none" }}>
-            <li
-              className={location.pathname === "/email" ? "sidebar-active" : ""}
+
+          <li
+            className={location.pathname === "/email" ? "sidebar-active" : ""}
+            onClick={toggleModal}
+          >
+            {/* <PersonOutlineIcon className="icon" /> */}
+            <span
+              className={
+                location.pathname === "/email"
+                  ? "sidebar-active"
+                  : "sidebar-title-span"
+              }
             >
-              {/* <PersonOutlineIcon className="icon" /> */}
-              <span
-                className={
-                  location.pathname === "/email"
-                    ? "sidebar-active"
-                    : "sidebar-title-span"
-                }
-              >
-                Promotional Email
-              </span>
-            </li>
-          </Link>
+              Promotional Email
+            </span>
+          </li>
 
           <p className="sidebar-title">USER</p>
           <li>
             {/* <ExitToAppIcon className="icon" /> */}
-            <span className="sidebar-title-span">Logout</span>
+            <span className="sidebar-title-span" onClick={clearUser}>
+              Logout
+            </span>
           </li>
         </ul>
       </div>
+      <Modal isOpen={open} onRequestClose={toggleModal} style={customStyles}>
+        <PromotionalEmail />
+      </Modal>
     </div>
   );
 };

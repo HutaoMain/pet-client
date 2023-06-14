@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getAppointmentInterface } from "../../../types/Types";
 import { Check, Close } from "@mui/icons-material";
 import DateTimePicker from "react-datetime-picker";
@@ -23,15 +23,15 @@ const UpdateAppointment = ({ toggleModalUpdate, paramsId }: any) => {
         .then((res) => res.data),
   });
 
-  useEffect(() => {
-    setAppointmentInfo({
-      _id: data?._id || "",
-      petName: data?.petName || "",
-      ownerName: data?.ownerName || "",
-      description: data?.description || "",
-      appointmentDate: data?.appointmentDate || new Date(),
-    });
-  }, [paramsId, data]);
+  // useEffect(() => {
+  //   setAppointmentInfo({
+  //     _id: data?._id || "",
+  //     petName: data?.petName || "",
+  //     ownerName: data?.ownerName || "",
+  //     description: data?.description || "",
+  //     appointmentDate: data?.appointmentDate || new Date(),
+  //   });
+  // }, [paramsId, data]);
 
   const onChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
